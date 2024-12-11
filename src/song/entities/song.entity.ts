@@ -1,3 +1,4 @@
+import { Field, ID, ObjectType } from '@nestjs/graphql';
 import {
   Column,
   CreateDateColumn,
@@ -15,31 +16,45 @@ import { SongArtist } from './song-artist.entity';
 import { SongWriter } from './song-writer.entity';
 import { SongFeaturing } from './song-featuring.entity';
 
+@ObjectType()
 @Entity('songs')
 export class Song {
+  @Field(() => ID)
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Field()
   @Column()
   title: string;
 
+  @Field()
+  artist: string;
+
+  @Field(() => [String])
+  writers: string[];
+
+  @Field({ nullable: true })
   @Column({ nullable: true })
   year?: number;
 
+  @Field()
   @CreateDateColumn({ type: 'timestamptz' })
   createdAt: Date;
 
+  @Field()
   @UpdateDateColumn({ type: 'timestamptz' })
   updatedAt: Date;
 
   @DeleteDateColumn({ type: 'timestamptz' })
   deletedAt: Date;
 
+  @Field(() => Album)
   @ManyToOne(() => Album, (album: Album) => album.songs)
   @JoinColumn()
   album: Album;
 
-  @OneToMany(() => SongView, (songCounter: SongView) => songCounter.song)
+  @Field(() => [SongView])
+  @OneToMany(() => SongView, (songView: SongView) => songView.song)
   views: SongView[];
 
   @OneToMany(() => SongArtist, (songArtist: SongArtist) => songArtist.song, {

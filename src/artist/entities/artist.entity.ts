@@ -10,18 +10,24 @@ import {
 import { SongArtist } from '../../song/entities/song-artist.entity';
 import { SongWriter } from '../../song/entities/song-writer.entity';
 import { SongFeaturing } from '../../song/entities/song-featuring.entity';
+import { Field, ID, ObjectType } from '@nestjs/graphql';
 
+@ObjectType()
 @Entity('artists')
 export class Artist {
+  @Field(() => ID)
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Field()
   @Column()
   name: string;
 
+  @Field()
   @CreateDateColumn({ type: 'timestamptz' })
   createdAt: Date;
 
+  @Field()
   @UpdateDateColumn({ type: 'timestamptz' })
   updatedAt: Date;
 
