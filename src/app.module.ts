@@ -4,6 +4,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { SongModule } from './song/song.module';
+import { join } from 'path';
+
+const isProd = process.env.NODE_ENV === 'production';
 
 @Module({
   imports: [
@@ -22,7 +25,7 @@ import { SongModule } from './song/song.module';
         password: configService.get<string>('POSTGRES_PASSWORD'),
         database: configService.get<string>('POSTGRES_DB'),
         synchronize: false,
-        logging: false,
+        logging: !isProd,
         entities: [`${__dirname}/**/*.entity{.ts,.js}`],
         subscribers: [],
       }),
@@ -30,8 +33,9 @@ import { SongModule } from './song/song.module';
     }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
-      autoSchemaFile: true,
-      playground: process.env.NODE_ENV === 'development',
+      autoSchemaFile: join(process.cwd(), 'schema.gql'),
+      playground: !isProd,
+      sortSchema: true,
     }),
     SongModule,
   ],
