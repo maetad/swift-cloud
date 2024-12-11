@@ -7,8 +7,37 @@ services:
     ports:
       - '${EXPOSE_APP_PORT:-15100}:3000'
       - '${EXPOSE_LOCAL_DEBUG_PORT:-12100}:9229'
+    depends_on:
+      - db
     env_file:
       - .env.development
     volumes:
       - '.:/usr/src/app'
       - ./node_modules:/usr/src/app/node_modules
+
+  db:
+    image: postgres:17
+    ports:
+      - 5432
+    env_file:
+      - .env.development
+    volumes:
+      - ./data/postgresql:/var/lib/postgresql/data
+    healthcheck:
+      test:
+        - CMD
+        - pg_isready
+        - '-q'
+        - '-d'
+        - '${POSTGRES_DB}'
+        - '-U'
+        - '${POSTGRES_USER}'
+      retries: 3
+      timeout: 5s
+  admin:
+    image: adminer
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - ${EXPOSE_ADMINER_PORT:-8080}:8080
