@@ -3,6 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { SongModule } from './song/song.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
       autoSchemaFile: true,
       playground: process.env.NODE_ENV === 'development',
     }),
+    SongModule,
   ],
 })
 export class AppModule {}

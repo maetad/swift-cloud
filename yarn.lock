@@ -710,6 +710,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@faker-js/faker@npm:^9.3.0":
+  version: 9.3.0
+  resolution: "@faker-js/faker@npm:9.3.0"
+  checksum: 10c0/6528e2f0bf0abc315780024534074a449e01e7f581f1a50a20ee7103d29d842e1c4d7dd6b27aa173f668308bf55a1d64c2547286c0c4e5a8e08d0b8269aaedc7
+  languageName: node
+  linkType: hard
+
 "@graphql-tools/merge@npm:9.0.11":
   version: 9.0.11
   resolution: "@graphql-tools/merge@npm:9.0.11"
@@ -1264,7 +1271,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nestjs/common@npm:^10.0.0":
+"@nestjs/common@npm:^10.4.13":
   version: 10.4.13
   resolution: "@nestjs/common@npm:10.4.13"
   dependencies:
@@ -3241,6 +3248,13 @@ __metadata:
   version: 0.0.10
   resolution: "cssfilter@npm:0.0.10"
   checksum: 10c0/478a227a616fb6e9bb338eb95f690df141b86231ec737cbea574484f31a09a51db894b4921afc4987459dae08d584355fd689ff2a7a7c7a74de4bb4c072ce553
+  languageName: node
+  linkType: hard
+
+"dataloader@npm:^2.2.3":
+  version: 2.2.3
+  resolution: "dataloader@npm:2.2.3"
+  checksum: 10c0/9b9a056fbc863ca86da87d59e053e871e263b4966aa4d55e40d61a65e96815fae5530ca220629064ca5f8e3000c0c4ec93292e170c38ff393fb34256b4d7c1aa
   languageName: node
   linkType: hard
 
@@ -7311,9 +7325,10 @@ __metadata:
   resolution: "swift-cloud@workspace:."
   dependencies:
     "@apollo/server": "npm:^4.11.2"
+    "@faker-js/faker": "npm:^9.3.0"
     "@nestjs/apollo": "npm:^12.2.2"
     "@nestjs/cli": "npm:^10.0.0"
-    "@nestjs/common": "npm:^10.0.0"
+    "@nestjs/common": "npm:^10.4.13"
     "@nestjs/config": "npm:^3.3.0"
     "@nestjs/core": "npm:^10.0.0"
     "@nestjs/graphql": "npm:^12.2.2"
@@ -7328,6 +7343,7 @@ __metadata:
     "@types/supertest": "npm:^6.0.0"
     "@typescript-eslint/eslint-plugin": "npm:^8.0.0"
     "@typescript-eslint/parser": "npm:^8.0.0"
+    dataloader: "npm:^2.2.3"
     eslint: "npm:^8.42.0"
     eslint-config-prettier: "npm:^9.0.0"
     eslint-plugin-prettier: "npm:^5.0.0"
@@ -7344,6 +7360,7 @@ __metadata:
     ts-node: "npm:^10.9.1"
     tsconfig-paths: "npm:^4.2.0"
     typeorm: "npm:^0.3.20"
+    typeorm-cursor-pagination: "npm:^0.10.1"
     typeorm-ts-node-commonjs: "npm:^0.3.20"
     typescript: "npm:^5.1.3"
   languageName: unknown
@@ -7695,6 +7712,15 @@ __metadata:
   version: 0.0.6
   resolution: "typedarray@npm:0.0.6"
   checksum: 10c0/6005cb31df50eef8b1f3c780eb71a17925f3038a100d82f9406ac2ad1de5eb59f8e6decbdc145b3a1f8e5836e17b0c0002fb698b9fe2516b8f9f9ff602d36412
+  languageName: node
+  linkType: hard
+
+"typeorm-cursor-pagination@npm:^0.10.1":
+  version: 0.10.1
+  resolution: "typeorm-cursor-pagination@npm:0.10.1"
+  peerDependencies:
+    typeorm: ^0.3.6
+  checksum: 10c0/24ab598bb3fb228cf98d4e83359b13d2b3083dd5b58e0eff72769094616e9bf286facdfec119290116e9d5fc86c9021a2b76eade3655175b650a14d902de71f6
   languageName: node
   linkType: hard
 
