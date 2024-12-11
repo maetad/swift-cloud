@@ -13,6 +13,20 @@ COPY .yarnrc.yml package.json yarn.lock .
 COPY .yarn .yarn
 RUN yarn install --immutable
 
+## Development
+FROM base AS development
+
+WORKDIR ${WORKDIR}
+
+COPY --from=deps ${WORKDIR}/node_modules ./node_modules
+COPY .yarnrc.yml package.json yarn.lock .
+COPY .yarn .yarn
+COPY .eslintrc.js nest-cli.json tsconfig.build.json tsconfig.json .
+COPY src ./src
+
+EXPOSE 3000
+CMD ["yarn", "start:dev"]
+
 ## Builder
 FROM base AS builder
 
@@ -37,6 +51,7 @@ COPY --from=deps ${WORKDIR}/node_modules ./node_modules
 COPY --from=builder ${WORKDIR}/dist ./dist
 COPY .yarnrc.yml package.json yarn.lock tsconfig.json .
 COPY .yarn .yarn
+COPY src/database ./src/database
 
 RUN chown -R 1001:0 $WORKDIR && chmod -R ug+rwx $WORKDIR
 USER 1001

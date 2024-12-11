@@ -6626,6 +6626,7 @@ __metadata:
     ts-node: "npm:^10.9.1"
     tsconfig-paths: "npm:^4.2.0"
     typeorm: "npm:^0.3.20"
+    typeorm-ts-node-commonjs: "npm:^0.3.20"
     typescript: "npm:^5.1.3"
   languageName: unknown
   linkType: soft
@@ -6969,6 +6970,15 @@ __metadata:
   version: 0.0.6
   resolution: "typedarray@npm:0.0.6"
   checksum: 10c0/6005cb31df50eef8b1f3c780eb71a17925f3038a100d82f9406ac2ad1de5eb59f8e6decbdc145b3a1f8e5836e17b0c0002fb698b9fe2516b8f9f9ff602d36412
+  languageName: node
+  linkType: hard
+
+"typeorm-ts-node-commonjs@npm:^0.3.20":
+  version: 0.3.20
+  resolution: "typeorm-ts-node-commonjs@npm:0.3.20"
+  bin:
+    typeorm-ts-node-commonjs: wrapper.sh
+  checksum: 10c0/45f5218db846a33e7921b8a8cf5896ec1d2d599a352f55063da357fe272688651640d7369f4101a3c10a743f1d99f037cd5ebca94042ccd881cd8e0a445f8c96
   languageName: node
   linkType: hard
 
