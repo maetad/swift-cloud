@@ -1,0 +1,14 @@
+services:
+  app:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    command: 'yarn start:debug'
+    ports:
+      - '${EXPOSE_APP_PORT:-15100}:3000'
+      - '${EXPOSE_LOCAL_DEBUG_PORT:-12100}:9229'
+    env_file:
+      - .env.development
+    volumes:
+      - '.:/usr/src/app'
+      - ./node_modules:/usr/src/app/node_modules
