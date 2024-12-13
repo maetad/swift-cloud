@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { Song } from './entities/song.entity';
 import { FindManyOptions, Like, Repository } from 'typeorm';
-import { PaginatedSong, SongArgs } from './song.args';
-import { PaginationArgs } from '@/shared/pagination/pagination.args';
+import { PaginatedSong, SongFilter } from './song.args';
+import { Pagination } from '@/shared/pagination/pagination.args';
 import { paginate } from '@/shared/pagination/pagination';
 import { InjectRepository } from '@nestjs/typeorm';
 
@@ -14,52 +14,54 @@ export class SongService {
   ) {}
 
   async paginate(
-    pagination: PaginationArgs,
-    query: SongArgs,
+    pagination: Pagination,
+    filter: SongFilter,
   ): Promise<PaginatedSong> {
+    const { order: ordering = 'id', direction = 'ASC' } = filter || {};
+
     const options: FindManyOptions<Song> = {
       where: {},
       order: {
-        [query.order]: query.direction,
+        [ordering]: direction,
       },
     };
 
-    if (query.title) {
+    if (filter?.title?.length) {
       Object.assign(options.where, {
-        title: Like(`%${query.title}%`),
+        title: Like(`%${filter.title}%`),
       });
     }
 
-    if (query.year) {
+    if (filter?.year) {
       Object.assign(options.where, {
-        year: query.year,
+        year: filter.year,
       });
     }
 
-    if (query.artist) {
+    if (filter?.artist?.length) {
       Object.assign(options.where, {
         songArtists: {
           artist: {
-            name: Like(`%${query.artist}%`),
+            name: Like(`%${filter.artist}%`),
           },
         },
       });
     }
 
-    if (query.writer) {
+    if (filter?.writer?.length) {
       Object.assign(options.where, {
         songWriters: {
           artist: {
-            name: Like(`%${query.writer}%`),
+            name: Like(`%${filter.writer}%`),
           },
         },
       });
     }
 
-    if (query.album) {
+    if (filter?.album?.length) {
       Object.assign(options.where, {
         album: {
-          title: Like(`%${query.album}%`),
+          title: Like(`%${filter.album}%`),
         },
       });
     }
@@ -69,8 +71,8 @@ export class SongService {
       options,
       pagination,
       20,
-      query.order,
-      query.direction,
+      ordering,
+      direction,
     );
 
     const edges = [];

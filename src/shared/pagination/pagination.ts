@@ -9,7 +9,7 @@ import {
   Repository,
 } from 'typeorm';
 import { PageInfo } from './page-info';
-import { PaginationArgs } from './pagination.args';
+import { Pagination } from './pagination.args';
 import { decode, encode } from './util';
 
 type IEdgeType<T> = {
@@ -51,7 +51,7 @@ export const paginated = <T>(classRef: Type<T>): Type<IPaginatedType<T>> => {
 export const paginate = async <T>(
   repository: Repository<T>,
   options: FindManyOptions<T>,
-  pagination: PaginationArgs,
+  pagination: Pagination,
   defaultLimit: number = 25,
   cursorColumn: string = 'id',
   direction: FindOptionsOrderValue = 'ASC',
@@ -63,8 +63,8 @@ export const paginate = async <T>(
 
   const count = await repository.count(options);
 
-  if (pagination.first) {
-    if (pagination.after) {
+  if (pagination?.first) {
+    if (pagination?.after) {
       const order = decode(pagination.after);
       cursorColumn = order.key;
       direction = order.direction;
@@ -79,9 +79,9 @@ export const paginate = async <T>(
       });
     }
 
-    options.take = pagination.first ?? defaultLimit;
-  } else if (pagination.last && pagination.before) {
-    const order = decode(pagination.before);
+    options.take = pagination?.first ?? defaultLimit;
+  } else if (pagination?.last && pagination?.before) {
+    const order = decode(pagination?.before);
     cursorColumn = order.key;
     direction = order.direction;
 

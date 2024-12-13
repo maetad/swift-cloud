@@ -6,8 +6,8 @@ import { Like, Repository } from 'typeorm';
 import { faker } from '@faker-js/faker';
 import { SongArtist } from './entities/song-artist.entity';
 import { Artist } from '@/artist/entities/artist.entity';
-import { PaginationArgs } from '@/shared/pagination/pagination.args';
-import { SongArgs } from './song.args';
+import { Pagination } from '@/shared/pagination/pagination.args';
+import { SongFilter } from './song.args';
 import { encode } from '@/shared/pagination/util';
 
 describe('SongService', () => {
@@ -78,8 +78,8 @@ describe('SongService', () => {
 
     it('should transform data correctly', async () => {
       const result = await service.paginate(
-        <PaginationArgs>{ first: take },
-        <SongArgs>{},
+        <Pagination>{ first: take },
+        <SongFilter>{},
       );
 
       expect(result.nodes.length).toBe(songs.length);
@@ -115,10 +115,10 @@ describe('SongService', () => {
 
     it('should handle query correctly', async () => {
       await service.paginate(
-        <PaginationArgs>{
+        <Pagination>{
           first: take,
         },
-        <SongArgs>{
+        <SongFilter>{
           title: 'title',
           artist: 'artist',
           writer: 'writer',

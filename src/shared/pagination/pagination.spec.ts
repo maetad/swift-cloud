@@ -2,7 +2,7 @@ import { LessThan, Like, MoreThan, Repository } from 'typeorm';
 import { paginate } from './pagination';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { PaginationArgs } from './pagination.args';
+import { Pagination } from './pagination.args';
 import { faker } from '@faker-js/faker/.';
 import { encode } from './util';
 
@@ -33,7 +33,7 @@ describe('paginate', () => {
   });
 
   it('should found 25 records', async () => {
-    const pagination = <PaginationArgs>{};
+    const pagination = <Pagination>{};
 
     jest.spyOn(repository, 'find').mockResolvedValue(
       faker.helpers.multiple((_, i) => <MockEntity>{ id: i + 1 }, {
@@ -53,7 +53,7 @@ describe('paginate', () => {
   });
 
   it('should found first 10 records after cursor', async () => {
-    const pagination = <PaginationArgs>{
+    const pagination = <Pagination>{
       first: 10,
       after: encode('id', 1, 'ASC'),
     };
@@ -83,7 +83,7 @@ describe('paginate', () => {
   });
 
   it('should found last 10 records before cursor', async () => {
-    const pagination = <PaginationArgs>{
+    const pagination = <Pagination>{
       last: 10,
       before: encode('id', 11, 'ASC'),
     };

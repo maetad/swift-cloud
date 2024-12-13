@@ -27,9 +27,16 @@ type PaginatedSong {
   pageInfo: PageInfo
 }
 
+input Pagination {
+  after: String
+  before: String
+  first: Int
+  last: Int
+}
+
 type Query {
   song(id: Int!): Song!
-  songs(after: String, album: String, artist: String, before: String, direction: String = "ASC", first: Int, last: Int, order: String = "id", title: String, writer: String, year: Float): PaginatedSong!
+  songs(filter: SongFilter, pagination: Pagination): PaginatedSong!
 }
 
 type Song {
@@ -47,6 +54,16 @@ type Song {
 type SongEdge {
   cursor: String!
   node: Song!
+}
+
+input SongFilter {
+  album: String
+  artist: String
+  direction: String = "ASC"
+  order: String = "id"
+  title: String
+  writer: String
+  year: Float
 }
 
 type SongView {

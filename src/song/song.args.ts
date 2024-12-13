@@ -1,10 +1,10 @@
-import { ArgsType, Field, ObjectType } from '@nestjs/graphql';
+import { ArgsType, Field, InputType, ObjectType } from '@nestjs/graphql';
 import { paginated } from '@/shared/pagination/pagination';
 import { Song } from './entities/song.entity';
 import { FindOptionsOrderValue } from 'typeorm';
 
-@ArgsType()
-export class SongArgs {
+@InputType()
+export class SongFilter {
   @Field({ nullable: true })
   title?: string;
 
@@ -25,6 +25,12 @@ export class SongArgs {
 
   @Field(() => String, { nullable: true })
   direction?: FindOptionsOrderValue = 'ASC';
+}
+
+@ArgsType()
+export class SongArgs {
+  @Field(() => SongFilter, { nullable: true })
+  filter: SongFilter;
 }
 
 @ObjectType()

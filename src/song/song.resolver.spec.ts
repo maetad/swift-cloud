@@ -51,12 +51,15 @@ describe('SongResolver', () => {
 
   it('should query songs', async () => {
     const pagination = <PaginationArgs>{
-      first: 10,
+      pagination: { first: 10 },
     };
-    const query = <SongArgs>{ year: 2024 };
+    const query = <SongArgs>{ filter: { year: 2024 } };
     const songs = await resolver.songs(pagination, query);
 
-    expect(service.paginate).toHaveBeenCalledWith(pagination, query);
+    expect(service.paginate).toHaveBeenCalledWith(
+      pagination.pagination,
+      query.filter,
+    );
     expect(songs.nodes.length).toEqual(2);
   });
 

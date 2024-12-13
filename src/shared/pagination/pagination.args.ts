@@ -1,7 +1,7 @@
-import { ArgsType, Field, Int } from '@nestjs/graphql';
+import { ArgsType, Field, InputType, Int } from '@nestjs/graphql';
 
-@ArgsType()
-export class PaginationArgs {
+@InputType()
+export class Pagination {
   @Field(() => Int, { nullable: true })
   first: number;
 
@@ -13,4 +13,10 @@ export class PaginationArgs {
 
   @Field(() => String, { nullable: true })
   after: string;
+}
+
+@ArgsType()
+export class PaginationArgs {
+  @Field(() => Pagination, { nullable: true })
+  pagination: Pagination;
 }

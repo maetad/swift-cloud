@@ -9,7 +9,7 @@ export class SongResolver {
   constructor(private songService: SongService) {}
 
   @Query(() => PaginatedSong)
-  songs(@Args() pagination: PaginationArgs, @Args() filter: SongArgs) {
+  songs(@Args() { pagination }: PaginationArgs, @Args() { filter }: SongArgs) {
     return this.songService.paginate(pagination, filter);
   }
 
