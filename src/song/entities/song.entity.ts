@@ -49,7 +49,7 @@ export class Song {
   deletedAt: Date;
 
   @Field(() => Album)
-  @ManyToOne(() => Album, (album: Album) => album.songs)
+  @ManyToOne(() => Album, (album: Album) => album.songs, { eager: true })
   @JoinColumn()
   album: Album;
 
