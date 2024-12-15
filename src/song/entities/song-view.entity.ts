@@ -18,6 +18,9 @@ export class SongView {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Column()
+  songId: number;
+
   @Field()
   @Column()
   month: number;

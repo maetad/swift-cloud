@@ -2,9 +2,28 @@ import { ArgsType, Field, InputType, ObjectType } from '@nestjs/graphql';
 import { paginated } from '@/shared/pagination/pagination';
 import { Song } from './entities/song.entity';
 import { FindOptionsOrderValue } from 'typeorm';
+import { args } from '@/shared/args';
 
 @InputType()
-export class SongFilter {
+export class MonthYear {
+  @Field()
+  month: number;
+
+  @Field()
+  year: number;
+}
+
+@InputType()
+export class ViewFilter {
+  @Field(() => MonthYear, { nullable: true })
+  from?: MonthYear;
+
+  @Field(() => MonthYear, { nullable: true })
+  to?: MonthYear;
+}
+
+@InputType()
+export class ListSongFilter {
   @Field({ nullable: true })
   title?: string;
 
@@ -20,6 +39,9 @@ export class SongFilter {
   @Field({ nullable: true })
   year?: number;
 
+  @Field(() => ViewFilter, { nullable: true })
+  views?: ViewFilter;
+
   @Field(() => String, { nullable: true })
   order?: keyof Pick<Song, 'id' | 'year'> = 'id';
 
@@ -27,11 +49,17 @@ export class SongFilter {
   direction?: FindOptionsOrderValue = 'ASC';
 }
 
-@ArgsType()
-export class SongArgs {
-  @Field(() => SongFilter, { nullable: true })
-  filter: SongFilter;
+@InputType()
+export class SongFilter {
+  @Field(() => ViewFilter, { nullable: true })
+  views?: ViewFilter;
 }
+
+@ArgsType()
+export class ListSongArgs extends args(ListSongFilter) {}
+
+@ArgsType()
+export class SongArgs extends args(SongFilter) {}
 
 @ObjectType()
 export class PaginatedSong extends paginated(Song) {}

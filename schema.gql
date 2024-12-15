@@ -15,6 +15,22 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+input ListSongFilter {
+  album: String
+  artist: String
+  direction: String = "ASC"
+  order: String = "id"
+  title: String
+  views: ViewFilter
+  writer: String
+  year: Float
+}
+
+input MonthYear {
+  month: Float!
+  year: Float!
+}
+
 type PageInfo {
   endCursor: String
   startCursor: String
@@ -35,8 +51,8 @@ input Pagination {
 }
 
 type Query {
-  song(id: Int!): Song!
-  songs(filter: SongFilter, pagination: Pagination): PaginatedSong!
+  song(filter: SongFilter, id: Int!): Song!
+  songs(filter: ListSongFilter, pagination: Pagination): PaginatedSong!
 }
 
 type Song {
@@ -58,13 +74,7 @@ type SongEdge {
 }
 
 input SongFilter {
-  album: String
-  artist: String
-  direction: String = "ASC"
-  order: String = "id"
-  title: String
-  writer: String
-  year: Float
+  views: ViewFilter
 }
 
 type SongView {
@@ -75,4 +85,9 @@ type SongView {
   song: Song!
   updatedAt: DateTime!
   year: Float!
+}
+
+input ViewFilter {
+  from: MonthYear
+  to: MonthYear
 }

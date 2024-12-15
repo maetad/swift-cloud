@@ -57,9 +57,7 @@ export class Song {
   album: Album;
 
   @Field(() => [SongView])
-  @OneToMany(() => SongView, (songView: SongView) => songView.song, {
-    eager: true,
-  })
+  @OneToMany(() => SongView, (songView: SongView) => songView.song)
   views: SongView[];
 
   @OneToMany(() => SongArtist, (songArtist: SongArtist) => songArtist.song, {
