@@ -92,16 +92,6 @@ describe('SongService', () => {
         where: {},
       });
 
-      result.nodes.forEach((node, index) => {
-        const song = songs[index];
-        expect(node.artist).toBe(
-          `${song.songArtists[0].artist.name} featuring ${song.songFeaturings[0].artist.name}`,
-        );
-        expect(node.writers).toEqual(
-          song.songWriters.map((w) => w.artist.name),
-        );
-      });
-
       // edges
       expect(result.edges[0]).toEqual({
         cursor: encode('id', songs[0].id, 'ASC'),
@@ -193,14 +183,7 @@ describe('SongService', () => {
 
       jest.spyOn(songRepository, 'findOneBy').mockResolvedValue(song);
 
-      const result = await service.findOne(2);
-
-      expect(result.artist).toBe(
-        `${song.songArtists[0].artist.name} and ${song.songArtists[1].artist.name} featuring ${song.songFeaturings[0].artist.name} and ${song.songFeaturings[1].artist.name}`,
-      );
-      expect(result.writers).toEqual(
-        song.songWriters.map((w) => w.artist.name),
-      );
+      await service.findOne(2);
     });
   });
 });

@@ -38,6 +38,9 @@ export class Song {
   year?: number;
 
   @Field()
+  totalViews: number;
+
+  @Field()
   @CreateDateColumn({ type: 'timestamptz' })
   createdAt: Date;
 

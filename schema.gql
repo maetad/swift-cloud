@@ -45,6 +45,7 @@ type Song {
   createdAt: DateTime!
   id: ID!
   title: String!
+  totalViews: Float!
   updatedAt: DateTime!
   views: [SongView!]!
   writers: [String!]!

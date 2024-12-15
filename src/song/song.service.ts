@@ -93,25 +93,12 @@ export class SongService {
 
     return {
       edges,
-      nodes: data.map((song) => this.transform(song)),
+      nodes: data,
       pageInfo,
     };
   }
 
-  async findOne(id: number): Promise<Song> {
-    const song = await this.songRepository.findOneBy({ id });
-
-    return this.transform(song);
-  }
-
-  protected transform(song: Song): Song {
-    song.artist = [
-      song.songArtists.map((v) => v.artist.name).join(' and '),
-      song.songFeaturings.map((v) => v.artist.name).join(' and '),
-    ].join(' featuring ');
-
-    song.writers = song.songWriters.map((v) => v.artist.name);
-
-    return song;
+  findOne(id: number): Promise<Song> {
+    return this.songRepository.findOneBy({ id });
   }
 }
